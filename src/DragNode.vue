@@ -1,9 +1,9 @@
 <template>
-  <div :style='styleObj' :draggable='isDraggable' @drag.stop='drag' @dragstart.stop='dragStart' @dragover.stop='dragOver' @dragenter.stop='dragEnter' @dragleave.stop='dragLeave' @drop.stop='drop' @dragend.stop='dragEnd' class='dnd-container'>
+  <div :style='styleObj' :class='`theme-${theme}`' :draggable='isDraggable' @drag.stop='drag' @dragstart.stop='dragStart' @dragover.stop='dragOver' @dragenter.stop='dragEnter' @dragleave.stop='dragLeave' @drop.stop='drop' @dragend.stop='dragEnd' class='dnd-container'>
     <div :class='{"is-clicked": isClicked,"is-hover":isHover}' @click="toggle" @mouseover='mouseOver' @mouseout='mouseOut' @dblclick="changeType">
       <div :style="{ 'padding-left': (this.depth - 1) * 1.5 + 'rem' }" :id='model.id' class='treeNodeText'>
         <span :class="caret"></span>
-        <div class='text'>
+        <div class='text' :class="textParentClicked">
           <span class= 'spanIcon' v-html="computeIcon(model.subtype, false, model.use_as)"></span>
           <span :class="[isClicked ? 'spanSelectedText' : '' , isHover ? 'spanUnderlineText' : 'spanText']"> {{model.name}} </span>
         </div>
@@ -50,6 +50,10 @@ export default {
       type: Function,
       default: () => true
     },
+    theme: {
+      type: String,
+      default: 'default'
+    },
     defaultText: {
       type: String,
       default: 'New item'
@@ -69,6 +73,12 @@ export default {
       if (!hasChildren) return ['vue-drag-node-icon']
       if (!this.willOpen) return ['vue-drag-node-icon']
       else return ['nodeClicked', 'vue-drag-node-icon']
+    },
+    textParentClicked() {
+      let hasChildren = this.model && this.model.children && this.model.children.length > 0
+      if (!hasChildren) return 'without-children'
+      if (!this.willOpen) return
+      else return 'parent-clicked'
     },
     isFolder() {
       return this.model.children && this.model.children.length
@@ -243,32 +253,71 @@ export default {
   color: white;
 }
 .treeNodeText {
-  color: white !important;
   cursor: pointer;
+
   .text {
     display: flex;
-    align-items: baseline;
+    align-items: center;
   }
 }
+
+.theme-default::v-deep {
+  .treeNodeText {
+    color: white !important;
+  }
+}
+
 .vue-drag-node-icon {
     border-left: 10px solid white !important;
     border-top: 4px solid transparent !important;
     border-bottom: 4px solid transparent !important;
 }
-.light-mode .vue-drag-node-icon {
-  border-left: 10px solid #555 !important;
-}
-.dnd-container .is-clicked {
-  background: #FF7A00 !important;
-  border-radius: 10px;
-  .treeNodeText {
-    background: #FF7A00 !important;
-    border-radius: 10px;
-    .spanSelectedText {
-      margin-right: 20px;
+
+.theme-nestview::v-deep {
+  .dnd-container .is-clicked .treeNodeText {
+    .text.without-children {
+      color: #FF7A00 !important;
+
+      i::before {
+        color: #FF7A00;
+      }
+
+      .spanText, .spanUnderlineText {
+        color: #FF7A00 !important;
+      }
+    }
+  }
+
+  .dnd-container .treeNodeText {
+    .text.parent-clicked {
+      color: #FF7A00 !important;
+
+      i::before {
+        color: #FF7A00;
+      }
+
+      .spanText, .spanUnderlineText {
+        color: #FF7A00 !important;
+      }
     }
   }
 }
+
+.theme-default::v-deep {
+  .dnd-container .is-clicked {
+    background: #FF7A00 !important;
+    border-radius: 10px;
+    .treeNodeText {
+      background: #FF7A00 !important;
+      border-radius: 10px;
+      .spanSelectedText {
+        margin-right: 20px;
+      }
+    }
+  }
+}
+
+
 .light-mode {
   .spanText {
     color: #555 !important
@@ -276,8 +325,12 @@ export default {
   .spanUnderlineText:hover {
     color: #555 !important
   }
+  .vue-drag-node-icon {
+    border-left: 10px solid #555 !important;
+  }
 }
 </style>
+
 <style lang="scss">
 .light-mode {
   .treeNodeText .spanIcon i::before {
@@ -317,7 +370,7 @@ export default {
   box-sizing: border-box;
   width: fit-content;
   font-size: 18px;
-  color: #324057;
+  color: white;
   display: flex;
   align-items: center;
 }
@@ -345,22 +398,33 @@ export default {
 }
 .spanText {
     margin-left: 6px;
+    color: white;
 }
 .spanUnderlineText {
+  color: white;
+  margin-left: 6px;
+  text-decoration-line: underline;
+}
+.spanSelectedText {
+  margin-left: 6px;
+}
+.theme-default::v-deep {
+  .spanUnderlineText {
     margin-left: 6px;
     text-decoration-line: underline;
     color: #fff !important;
-}
-.spanSelectedText {
-    margin-left: 6px;
-    color: #ED9235;
-}
-.is-clicked {
-    background: #FF7A00;
-    border-radius: 10px;
-}
-.is-clicked .spanText {
-    color: #fff !important;
+  }
+  .spanSelectedText {
+      margin-left: 6px;
+      color: #ED9235;
+  }
+  .is-clicked {
+      background: #FF7A00;
+      border-radius: 10px;
+  }
+  .is-clicked .spanText {
+      color: #fff !important;
+  }
 }
 .spanItemref {
     margin-left: 2px;
