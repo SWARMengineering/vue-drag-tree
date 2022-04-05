@@ -271,8 +271,7 @@ export default {
     dragStart(e) {
       e.dataTransfer.effectAllowed = 'move'
       e.dataTransfer.setData('text/plain', 'asdad')
-      let id = this.model.id
-      this.dragActive = id
+      this.dragActive = true
       return true
     },
     dragOver(e) {
