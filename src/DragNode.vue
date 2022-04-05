@@ -276,7 +276,7 @@ export default {
     },
     dragOver(e) {
       e.preventDefault()
-      this.dragActive = null
+      this.dragActive = false
       rootTree.emitDragOver(this.model, this, e)
       return true
     },
