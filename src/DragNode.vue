@@ -22,7 +22,7 @@
         <i
           title="Move"
           v-if="showDragIcon && isDraggable"
-          class="sw-threedots-vertical"
+          :class="dragClass"
           :draggable='isDraggable'
           @dragstart.stop='dragStart'
           @drag.stop='drag'
@@ -72,6 +72,7 @@ export default {
         opacity: 1
       },
       willOpen: this.open,
+      dragActive: false
     }
   },
   props: {
@@ -114,6 +115,10 @@ export default {
     }
   },
   computed: {
+    dragClass(){
+      if (this.dragActive) return "sw-folder"
+      else return "sw-threedots-vertical"
+    },
     hasChildren() {
       return this.model && this.model.children && this.model.children.length > 0
     },
@@ -266,10 +271,12 @@ export default {
     dragStart(e) {
       e.dataTransfer.effectAllowed = 'move'
       e.dataTransfer.setData('text/plain', 'asdad')
+      this.dragActive = true
       return true
     },
     dragOver(e) {
       e.preventDefault()
+      this.dragActive = false
       rootTree.emitDragOver(this.model, this, e)
       return true
     },
@@ -320,6 +327,13 @@ export default {
   position: absolute;
   right: 0;
   margin-right: 10px;
+}
+.sw-folder {
+  font-size: 16px;
+  position: absolute;
+  right: 0;
+  margin-right: 10px;
+  opacity: .5;
 }
 .spanText, .spanUnderlineText {
   white-space: nowrap;
