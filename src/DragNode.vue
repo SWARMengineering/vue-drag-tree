@@ -22,9 +22,9 @@
         <i
           title="Move"
           v-if="showDragIcon && isDraggable"
-          v-bind:class="getDragClass()"
+          :class="dragClass"
           :draggable='isDraggable'
-          @dragstart.stop='dragStart($event, model.id)'
+          @dragstart.stop='dragStart'
           @drag.stop='drag'
           @dragover.stop='dragOver'
           @dragenter.stop='dragEnter'
@@ -72,7 +72,7 @@ export default {
         opacity: 1
       },
       willOpen: this.open,
-      changeDragIcon: false
+      dragActive: false
     }
   },
   props: {
@@ -115,6 +115,10 @@ export default {
     }
   },
   computed: {
+    dragClass(){
+      if (this.dragActive) return "sw-folder"
+      else return "sw-threedots-vertical"
+    },
     hasChildren() {
       return this.model && this.model.children && this.model.children.length > 0
     },
@@ -199,10 +203,6 @@ export default {
           return null
       }
     },
-   getDragClass(){
-     if(this.changeDragIcon) return "sw-folder"
-     else return "sw-threedots-vertical"
-   },
     toggle() {
       if (this.changeMenuTree) {
         this.$notify({
@@ -268,15 +268,16 @@ export default {
       fromData = this
       rootTree.emitDrag(this.model, this, e)
     },
-    dragStart(e, id) {
+    dragStart(e) {
       e.dataTransfer.effectAllowed = 'move'
       e.dataTransfer.setData('text/plain', 'asdad')
-      this.changeDragIcon = id
+      let id = this.model.id
+      this.dragActive = id
       return true
     },
     dragOver(e) {
       e.preventDefault()
-      this.changeDragIcon = null
+      this.dragActive = null
       rootTree.emitDragOver(this.model, this, e)
       return true
     },
