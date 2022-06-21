@@ -72,6 +72,7 @@ export default {
         opacity: 1
       },
       willOpen: this.open,
+      droppedNodeId: '',
       dragActive: false
     }
   },
@@ -305,6 +306,7 @@ export default {
       }
       toData = this
       exchangeData(rootTree, fromData, toData)
+      this.droppedNodeId = fromData && fromData.model && fromData.model.id
       rootTree.emitDrop(this.model, this, e)
     },
     dragEnd(e) {
