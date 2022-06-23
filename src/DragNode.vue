@@ -76,6 +76,11 @@ export default {
       dragActive: false
     }
   },
+  watch: {
+    'open': function () {
+      this.willOpen = this.open
+    }
+  },
   props: {
     open: {
       type: Boolean,
