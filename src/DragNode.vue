@@ -218,7 +218,7 @@ export default {
         })
         return
       }
-      this.willOpen = !this.willOpen
+      if (this.isFolder && nodeClicked === this.model.id) this.willOpen = !this.willOpen
       rootTree.emitCurNodeClicked(this.model, this)
       this.isClicked = !this.isClicked
       if (nodeClicked != this.model.id) {
