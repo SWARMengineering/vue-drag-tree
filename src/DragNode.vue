@@ -218,7 +218,10 @@ export default {
         })
         return
       }
-      if (this.isFolder && nodeClicked === this.model.id) this.willOpen = !this.willOpen
+      /** This condition is placed here so that if you want to select an open folder
+       * you don't have to double click */
+      if (nodeClicked !== this.model.id) this.willOpen = true
+      else this.willOpen = !this.willOpen
       rootTree.emitCurNodeClicked(this.model, this)
       this.isClicked = !this.isClicked
       if (nodeClicked != this.model.id) {
