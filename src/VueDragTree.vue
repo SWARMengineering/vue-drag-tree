@@ -1,7 +1,7 @@
 <template>
   <div>
     <template v-for='(item,index) in newData'>
-      <drag-node :createChildNodeOnDoubleClick='createChildNodeOnDoubleClick' :theme='theme' :open='item.open' :model='item' :allowDrag='allowDrag' :allowDrop='allowDrop' :depth='increaseDepth' :defaultText='defaultText' :key='index'></drag-node>
+      <drag-node :disableDBClick='disableDBClick' :theme='theme' :isOpen='item.open' :model='item' :allowDrag='allowDrag' :allowDrop='allowDrop' :depth='increaseDepth' :defaultText='defaultText' :key='index'></drag-node>
     </template>
   </div>
 </template>
@@ -33,9 +33,9 @@ export default {
       type: Number,
       default: 0
     },
-    createChildNodeOnDoubleClick: {
+    disableDBClick: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
   computed: {

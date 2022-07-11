@@ -56,11 +56,10 @@ export default {
   name: "DragNode",
   data() {
     return {
-      open: false,
-      isClicked: false, // 当前节点被点击
-      isHover: false, // 当前节点被hvoer
+      open: this.isOpen,
+      isClicked: false,
+      isHover: false,
       styleObj: {
-        //节点样式
         opacity: 1,
       },
     };
@@ -84,9 +83,13 @@ export default {
       type: Number,
       default: 0,
     },
+    isOpen: {
+      type: Boolean,
+      default: false
+    },
     disableDBClick: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   computed: {
@@ -102,18 +105,16 @@ export default {
   },
   methods: {
     toggle() {
+      if (!this.isClicked) {
+        this.isClicked = true;
+      }
       if (this.isFolder) {
         this.open = !this.open;
       }
-      // 调用vue-drag-tree的父组件中的方法,以传递出当前被点击的节点的id值
-      //　API: 对外开放的当前被点击节点的信息
+      if (this.depth <= 1) {
+        this.open = true;
+      }
       rootTree.emitCurNodeClicked(this.model, this);
-
-      // 纪录节点被点击的状态
-      this.isClicked = !this.isClicked;
-
-      // 用户需要节点高亮
-      // 第一次点击当前节点．当前节点高亮，遍历重置其他节点的样式
       if (nodeClicked != this.model.id) {
         let treeParent = rootTree.$parent;
 
