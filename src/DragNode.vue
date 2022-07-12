@@ -25,7 +25,7 @@
       >
         <slot :nodeName="model.name" :isClicked="isClicked">
           <span :class="[open ? 'nodeClicked' : '', 'vue-drag-node-icon']"></span>
-          <span class="text" v-html="model.name"></span>
+          <span class="text" v-html="getIcon(model.subtype, model.children && model.children.length, model.use_as) + ' ' + model.name"></span>
         </slot>
       </div>
     </div>
@@ -104,6 +104,53 @@ export default {
     },
   },
   methods: {
+    getIcon(subtype, hasChildren, useAs) {
+      switch(subtype)
+      {
+        case 'configuration':
+        case 'user':
+          return `<i class="sw-${subtype}"></i> `
+        case 'process':
+          return '<i class="sw-diagram"></i>'
+        case 'organization':
+          return '<i class="sw-skycraper"></i>'
+        case 'format':
+          return '<i class="sw-archive"></i>'
+        case 'algorithm':
+          return '<i class="sw-optimization"></i>'
+        case 'bundle':
+          return '<i class="sw-card-bundle"></i>'
+        case 'capture':
+          return '<i class="sw-article"></i>'
+        case 'persona':
+          return '<i class="sw-brain-configuration"></i>'
+        case 'asset':
+          return '<i class="sw-cube"></i>'
+        case 'dashmodel':
+          return '<i class="sw-grid"></i>'
+        case 'constraint':
+          return '<i class="sw-filter"></i>'
+        case 'datamodel':
+          return '<i class="sw-data-model"></i>'
+        case 'folder':
+          return `<i class="sw-${hasChildren ? 'folder' : 'folder-empty'}"></i>`
+        case 'itemref':
+          return `<i class="sw-link"></i>`
+        case 'functor':
+          return `<i class="sw-graphic-ascending"></i>`
+        case 'optimization':
+        case 'metric':
+          return `<i class="sw-target"></i>`
+        case 'declaration':
+          return `<i class="sw-${useAs && useAs === 'declaration.output' ? 'items-list' : 'tools'}"></i>`
+        case 'order':
+          return `<i class="sw-timer"></i>`
+        case 'codetemplate':
+          return `<i class="sw-scaffolding"></i>`
+        default:
+          return ''
+      }
+    },
     toggle() {
       if (!this.isClicked) {
         this.isClicked = true;
