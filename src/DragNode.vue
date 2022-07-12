@@ -19,7 +19,7 @@
       @dblclick="changeType"
     >
       <div
-        :style="{ 'padding-left': (this.depth - 1) * 24 + 'px' }"
+        :style="{ 'padding-left': (this.depth - 1) * 16 + 'px' }"
         :id="model.id"
         class="treeNodeText"
       >
@@ -314,7 +314,7 @@ export default {
   width: 0;
   height: 0;
   margin-left: 10px;
-  margin-right: 8px;
+  margin-right: 3px;
   border-left: 4px solid grey;
   border-top: 4px solid transparent;
   border-bottom: 4px solid transparent;
