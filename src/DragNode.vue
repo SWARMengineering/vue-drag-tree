@@ -7,6 +7,7 @@
     class='dnd-container'
   >
     <div
+      :data-cy="`menuTree-${model.name.toLowerCase().replace(/\s/g, '-')}`"
       :class='{"is-clicked": isClicked, "is-hover": isHover, "default-tree-clicked": defaultTreeClicked, "default-tree-single": textParentClicked}'
       @click="toggle"
       @mouseover='mouseOver'
