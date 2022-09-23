@@ -23,10 +23,10 @@
         :id="model.id"
         class="treeNodeText"
       >
-        <slot :nodeName="model.name" :isClicked="isClicked">
+        <span :nodeName="model.name" :isClicked="isClicked">
           <span :class="[open ? 'nodeClicked' : '', 'vue-drag-node-icon']"></span>
           <span class="text" v-html="getIcon(model.subtype, model.children && model.children.length, model.use_as) + ' ' + model.name"></span>
-        </slot>
+        </span>
       </div>
     </div>
     <div class="treeMargin" v-show="open" v-if="isFolder">
