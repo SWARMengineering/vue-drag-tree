@@ -269,17 +269,25 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .dnd-container {
   background: #fff;
 }
 
 .dnd-container .is-clicked {
   background: #e5e9f2;
+
+  .text {
+    color: #f29807 !important;
+  }
 }
 
 .dnd-container .is-hover {
   background: #e5e9f2;
+
+  .text {
+    color: #f29807;
+  }
 }
 
 .item {
@@ -302,6 +310,18 @@ export default {
   color: #324057;
   display: flex;
   align-items: center;
+
+  span:first-child {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+
+    .text {
+      display: flex;
+      align-items: center;
+      column-gap: 3px;
+    }
+  }
 }
 
 .changeTree {
