@@ -375,7 +375,7 @@ export default {
   border-left: 10px solid #555 !important;
 }
 
-.theme-nestview::v-deep {
+.theme-nestview {
   .is-clicked.default-tree-single .treeNodeText,
   .is-clicked.default-tree-clicked .treeNodeText {
     .text.parent-clicked, .text {
@@ -392,7 +392,7 @@ export default {
   }
 }
 
-.theme-default::v-deep {
+.theme-default {
   .is-clicked.default-tree-clicked .treeNodeText,
   .is-clicked.default-tree-single .treeNodeText {
     background: #f29807 !important;
