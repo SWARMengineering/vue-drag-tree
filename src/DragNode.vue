@@ -362,10 +362,6 @@ export default {
     display: flex;
     align-items: initial;
   }
-
-  :deep() {
-
-  }
 }
 .vue-drag-node-icon {
     border-left: 10px solid white !important;
