@@ -333,17 +333,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.sw-threedots-vertical {
-  font-size: 16px;
-  position: absolute;
-  right: 0;
-  margin-right: 10px;
-}
+.sw-threedots-vertical,
 .sw-folder {
   font-size: 16px;
   position: absolute;
   right: 0;
-  margin-right: 10px;
+  margin-right: 30px;
+}
+.sw-folder {
   opacity: .5;
 }
 .spanText, .spanUnderlineText {
@@ -364,6 +361,10 @@ export default {
   .text {
     display: flex;
     align-items: initial;
+  }
+
+  :deep() {
+
   }
 }
 .vue-drag-node-icon {
