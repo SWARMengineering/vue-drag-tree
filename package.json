@@ -37,7 +37,8 @@
   "license": "MIT",
   "homepage": "https://github.com/shuiRong/vue-drag-tree#readme",
   "dependencies": {
-    "vue": "^2.3.3"
+    "vue": "^2.3.3",
+    "vue-sanitize": "^0.2.3"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",

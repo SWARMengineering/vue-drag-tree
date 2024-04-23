@@ -18,7 +18,7 @@
         <span :class="caret"></span>
         <div class='text' :class='{"parent-clicked": textParentClicked}'>
           <span class= 'spanIcon' v-html="computeIcon(model.subtype, false, model.use_as)"></span>
-          <span :class="[isClicked ? 'spanSelectedText' : '' , isHover ? 'spanUnderlineText' : 'spanText']"> {{model.name}} </span>
+          <span :class="[isClicked ? 'spanSelectedText' : '' , isHover ? 'spanUnderlineText' : 'spanText']"> {{$sanitize(model.name)}} </span>
         </div>
         <i
           title="Move"
