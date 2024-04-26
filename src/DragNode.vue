@@ -25,7 +25,8 @@
       >
         <span :nodeName="model.name" :isClicked="isClicked">
           <span :class="[open ? 'nodeClicked' : '', 'vue-drag-node-icon']"></span>
-          <span class="text" v-html="getIcon(model.subtype, model.children && model.children.length, model.use_as) + ' ' + $sanitize(model.name)"></span>
+          <span class="text" v-html="getIcon(model.subtype, model.children && model.children.length, model.use_as)"></span>
+          <span class="text">{{ model.name }}</span>
         </span>
       </div>
     </div>
