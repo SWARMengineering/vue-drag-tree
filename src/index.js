@@ -1,4 +1,5 @@
 import VueDragTree from './VueDragTree.vue'
+import VueSanitize from "vue-sanitize"
 
 const VueDragTreeComponent = {
   install: function(Vue) {
@@ -6,6 +7,7 @@ const VueDragTreeComponent = {
       Vue = window.Vue
     }
     Vue.component('VueDragTree', VueDragTree)
+    Vue.use(VueSanitize)
   }
 }
 
